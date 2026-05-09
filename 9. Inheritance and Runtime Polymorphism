@@ -1,0 +1,90 @@
+#include <iostream>
+using namespace std;
+
+class Person {
+
+protected:
+    string name;
+
+public:
+
+    void getPerson() {
+        cout << "Enter name: ";
+        cin >> name;
+    }
+
+    virtual void display() {
+        cout << "Name: " << name << endl;
+    }
+};
+
+class Student : public Person {
+
+    string course;
+    int marks, year;
+
+public:
+
+    void getStudent() {
+
+        getPerson();
+
+        cout << "Enter course, marks and year: ";
+        cin >> course >> marks >> year;
+    }
+
+    void display() {
+
+        cout << "Name: " << name << endl;
+        cout << "Course: " << course << endl;
+        cout << "Marks: " << marks << endl;
+        cout << "Year: " << year << endl;
+    }
+};
+
+class Employee : public Person {
+
+    string department;
+    float salary;
+
+public:
+
+    void getEmployee() {
+
+        getPerson();
+
+        cout << "Enter department and salary: ";
+        cin >> department >> salary;
+    }
+
+    void display() {
+
+        cout << "Name: " << name << endl;
+        cout << "Department: " << department << endl;
+        cout << "Salary: " << salary << endl;
+    }
+};
+
+int main() {
+
+    Person *p;
+
+    Student s;
+    Employee e;
+
+    cout << "\nStudent Details\n";
+    s.getStudent();
+
+    cout << "\nEmployee Details\n";
+    e.getEmployee();
+
+    cout << "\nDisplaying Student:\n";
+    p = &s;
+    p->display();
+
+    cout << "\nDisplaying Employee:\n";
+    p = &e;
+    p->display();
+
+    return 0;
+}
