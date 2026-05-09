@@ -1,0 +1,28 @@
+#include <iostream>
+#include <cctype>
+using namespace std;
+
+int main(int argc, char *argv[]) {
+
+    int count[26] = {0};
+
+    for(int i = 1; i < argc; i++) {
+
+        for(int j = 0; argv[i][j] != '\0'; j++) {
+
+            char ch = tolower(argv[i][j]);
+
+            if(ch >= 'a' && ch <= 'z') {
+                count[ch - 'a']++;
+            }
+        }
+    }
+
+    cout << "Alphabet Occurrences:\n";
+
+    for(int i = 0; i < 26; i++) {
+        cout << char(i + 'a') << " : " << count[i] << endl;
+    }
+
+    return 0;
+}
