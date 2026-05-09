@@ -1,0 +1,168 @@
+#include <iostream>
+using namespace std;
+
+// Length using pointers
+int strLength(char *str) {
+    int len = 0;
+    while(*str != '\0') {
+        len++;
+        str++;
+    }
+    return len;
+}
+
+// Compare strings
+int strCompare(char s1[], char s2[]) {
+    int i = 0;
+
+    while(s1[i] != '\0' && s2[i] != '\0') {
+        if(s1[i] != s2[i]) {
+            return s1[i] - s2[i];
+        }
+        i++;
+    }
+
+    return s1[i] - s2[i];
+}
+
+// Concatenate strings
+void strConcat(char s1[], char s2[]) {
+    int i = strLength(s1);
+    int j = 0;
+
+    while(s2[j] != '\0') {
+        s1[i] = s2[j];
+        i++;
+        j++;
+    }
+
+    s1[i] = '\0';
+}
+
+// Reverse string
+void reverseStr(char str[]) {
+    int len = strLength(str);
+
+    for(int i = 0; i < len / 2; i++) {
+        char temp = str[i];
+        str[i] = str[len - i - 1];
+        str[len - i - 1] = temp;
+    }
+}
+
+// Convert lowercase to uppercase
+void toUpper(char str[]) {
+    for(int i = 0; str[i] != '\0'; i++) {
+        if(str[i] >= 'a' && str[i] <= 'z') {
+            str[i] = str[i] - 32;
+        }
+    }
+}
+
+// Insert string
+void insertString(char mainStr[], char insertStr[], int pos) {
+    int lenMain = strLength(mainStr);
+    int lenInsert = strLength(insertStr);
+
+    for(int i = lenMain; i >= pos; i--) {
+        mainStr[i + lenInsert] = mainStr[i];
+    }
+
+    for(int i = 0; i < lenInsert; i++) {
+        mainStr[pos + i] = insertStr[i];
+    }
+}
+
+int main() {
+
+    char str1[200], str2[100];
+    int choice;
+
+    cout << "Enter first string: ";
+    cin.getline(str1, 200);
+
+    do {
+        cout << "\nMENU\n";
+        cout << "1. Show address of each character\n";
+        cout << "2. Concatenate two strings\n";
+        cout << "3. Compare two strings\n";
+        cout << "4. Length of string\n";
+        cout << "5. Convert lowercase to uppercase\n";
+        cout << "6. Reverse string\n";
+        cout << "7. Insert string\n";
+        cout << "8. Exit\n";
+
+        cout << "Enter choice: ";
+        cin >> choice;
+        cin.ignore();
+
+        switch(choice) {
+
+            case 1:
+                for(int i = 0; str1[i] != '\0'; i++) {
+                    cout << str1[i] << " -> "
+                         << (void*)&str1[i] << endl;
+                }
+                break;
+
+            case 2:
+                cout << "Enter second string: ";
+                cin.getline(str2, 100);
+
+                strConcat(str1, str2);
+
+                cout << "Concatenated String: " << str1 << endl;
+                break;
+
+            case 3:
+                cout << "Enter second string: ";
+                cin.getline(str2, 100);
+
+                if(strCompare(str1, str2) == 0)
+                    cout << "Strings are equal\n";
+                else
+                    cout << "Strings are not equal\n";
+
+                break;
+
+            case 4:
+                cout << "Length = " << strLength(str1) << endl;
+                break;
+
+            case 5:
+                toUpper(str1);
+                cout << "Uppercase String: " << str1 << endl;
+                break;
+
+            case 6:
+                reverseStr(str1);
+                cout << "Reversed String: " << str1 << endl;
+                break;
+
+            case 7: {
+                int pos;
+
+                cout << "Enter string to insert: ";
+                cin.getline(str2, 100);
+
+                cout << "Enter position: ";
+                cin >> pos;
+
+                insertString(str1, str2, pos);
+
+                cout << "Result: " << str1 << endl;
+                break;
+            }
+
+            case 8:
+                cout << "Exiting...\n";
+                break;
+
+            default:
+                cout << "Invalid choice\n";
+        }
+
+    } while(choice != 8);
+
+    return 0;
+}
